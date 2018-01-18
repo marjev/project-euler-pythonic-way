@@ -1,1 +1,2 @@
-# project-euler-pythonic-way
+# Project Euler
+URL: https://projecteuler.net/problem=1
