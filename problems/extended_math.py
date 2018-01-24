@@ -18,99 +18,6 @@ def get_fibonacci_numbers(limit):
         current, following = following, current + following
 
 
-def get_largest_natural_number(number_of_digits):
-    """ 
-    Returns the largest natural x-digit number.
-
-    Args:
-        number_of_digits (int): Number of digits of the largest number.
-
-    Returns:
-        int: The largest natural number that has `number_of_digits` digits.
-
-    Raises:
-        ValueError: If `number_of_digits` is not a natural number.
-    """
-    if number_of_digits < 1:
-        raise ValueError('Number of digits must be greater than zero.')
-
-    return 10 ** number_of_digits - 1
-
-
-def get_largest_palindrome_product(limit, number_of_digits):
-    """ 
-    Returns the largest palindrome number:
-        - whose value does not exceed the limit
-        - is a product of two numbers with `number_of_digits` digits
-
-    Args:
-        limit (int): Upper limit which must not be exceeded.
-        number_of_digits (int): Number of digits of the largest number.
-
-    Returns:
-        int: The largest palindrome number in the range of 0 to `limit`.
-    
-    Raises:
-        ValueError: If `number_of_digits` is not a natural number.
-    """
-    if number_of_digits < 1:
-        raise ValueError('Number of digits must be greater than zero.')
-
-    for i in range(limit, 0, -1):
-        if is_palindrome(str(i)) and is_product_of_two_x_digit_numbers(i, number_of_digits):
-            return i
-
-
-def get_largest_prime_factor(number):
-    """ 
-    Returns the largest prime factor of a natural number.
-
-    Args:
-        number (int): Natural number whose largest prime factor we're searching for.
-
-    Returns:
-        :obj:`int`: The largest prime factor or None if there's no such number.
-
-    Raises:
-        ValueError: If `number` is not a natural number.
-    """
-    if number < 1:
-        raise ValueError('%d is not a natural number.' % number)
-
-    divisor = 2
-    largest_prime_factor = number
-
-    while divisor < largest_prime_factor:
-        if largest_prime_factor % divisor == 0:
-            largest_prime_factor //= divisor
-        else:
-            divisor += 1
-
-    if largest_prime_factor == number:
-        return None
-
-    return largest_prime_factor
-
-
-def get_lowest_natural_number(number_of_digits):
-    """ 
-    Returns the lowest natural x-digit number.
-
-    Args:
-        number_of_digits (int): Number of digits of the lowest number.
-
-    Returns:
-        int: The lowest natural number that has `number_of_digits` digits.
-    
-    Raises:
-        ValueError: If `number_of_digits` is not a natural number.
-    """
-    if number_of_digits < 1:
-        raise ValueError('Number of digits must be greater than zero.')
-
-    return 10 ** (number_of_digits - 1)
-
-
 def get_number_of_digits(number):
     """ 
     Returns the number of digits of a natural number.
@@ -125,9 +32,28 @@ def get_number_of_digits(number):
         ValueError: If `number` is not a natural number.
     """
     if number < 1:
-        raise ValueError('%d is not a natural number.' % number)
+        raise ValueError('{number} is not a natural number.'.format(number=number))
 
     return len(str(number))
+
+
+def greatest_common_divisor(a, b):
+    """ 
+    Returns the greatest common divisor (GCD) of two numbers.
+
+    Args:
+        a (int): First number for which the GCD is calculated.
+        b (int): Second number for which the GCD is calculated.
+
+    Returns:
+        int: The GCD of two numbers
+    """
+    smaller_number, larger_number = (b, a) if a > b else (a, b)
+
+    while smaller_number != 0:
+        larger_number, smaller_number = smaller_number, larger_number % smaller_number
+
+    return larger_number
 
 
 def is_palindrome(text):
@@ -159,38 +85,144 @@ def is_product_of_two_x_digit_numbers(number, number_of_digits):
         ValueError: If `number_of_digits` is not a natural number.
     """
     if number < 1:
-        raise ValueError('%d is not a natural number.' % number)
+        raise ValueError('{number} is not a natural number.'.format(number=number))
 
     if number_of_digits < 1:
         raise ValueError('Number of digits must be greater than zero.')
 
     square_root = int(math.sqrt(number))
-    for i in range(square_root, get_lowest_natural_number(number_of_digits) - 1, -1):
+    for i in range(square_root, smallest_natural_number(number_of_digits) - 1, -1):
         factor, remainder = divmod(number, i)
         if remainder == 0:
-            if is_x_digit_natural_number(factor, number_of_digits):
+            number_of_factor_digits = get_number_of_digits(factor)
+            if number_of_factor_digits == number_of_digits:
                 return True
-            elif get_number_of_digits(factor) > number_of_digits:
+            elif number_of_factor_digits > number_of_digits:
                 return False
 
     return False
 
 
-def is_x_digit_natural_number(number, number_of_digits):
+def largest_natural_number(number_of_digits):
     """ 
-    Returns whether the natural number has `number_of_digits` digits.
+    Returns the largest natural x-digit number.
 
     Args:
-        number (int): Natural number to be evaluated.
-        number_of_digits (int): Number of digits used to evaluate a number.
+        number_of_digits (int): Number of digits of the largest number.
 
     Returns:
-        bool: True if `number` has `number_of_digits` digits. False otherwise.
+        int: The largest natural number that has `number_of_digits` digits.
+
+    Raises:
+        ValueError: If `number_of_digits` is not a natural number.
+    """
+    if number_of_digits < 1:
+        raise ValueError('Number of digits must be greater than zero.')
+
+    return 10 ** number_of_digits - 1
+
+
+def largest_palindrome_product(number_of_digits):
+    """ 
+    Returns the largest palindrome number that is a product of two numbers with `number_of_digits` digits.
+
+    Args:
+        number_of_digits (int): Number of digits of the largest number.
+
+    Returns:
+        int: The largest palindrome product.
+    
+    Raises:
+        ValueError: If `number_of_digits` is not a natural number.
+    """
+    if number_of_digits < 1:
+        raise ValueError('Number of digits must be greater than zero.')
+
+    max_possible_product = largest_natural_number(number_of_digits) ** 2
+
+    for i in range(max_possible_product, 0, -1):
+        if is_palindrome(str(i)) and is_product_of_two_x_digit_numbers(i, number_of_digits):
+            return i
+
+
+def largest_prime_factor(number):
+    """ 
+    Returns the largest prime factor of a natural number.
+
+    Args:
+        number (int): Natural number whose largest prime factor we're searching for.
+
+    Returns:
+        :obj:`int`: The largest prime factor or None if there's no such number.
 
     Raises:
         ValueError: If `number` is not a natural number.
     """
     if number < 1:
-        raise ValueError('%d is not a natural number.' % number)
+        raise ValueError('{number} is not a natural number.'.format(number=number))
 
-    return get_lowest_natural_number(number_of_digits) <= number <= get_largest_natural_number(number_of_digits)
+    divisor = 2
+    largest_prime_factor = number
+
+    while divisor < largest_prime_factor:
+        if largest_prime_factor % divisor == 0:
+            largest_prime_factor //= divisor
+        else:
+            divisor += 1
+
+    if largest_prime_factor == number:
+        return None
+
+    return largest_prime_factor
+
+
+def least_common_multiple(a, b):
+    """ 
+    Returns the least common multiple (LCM) of two numbers.
+
+    Args:
+        a (int): First number for which the LCM is calculated.
+        b (int): Second number for which the LCM is calculated.
+
+    Returns:
+        int: The LCM of two numbers
+    """
+    return abs(a * b) // greatest_common_divisor(a, b)
+
+
+def smallest_multiple_of_numbers(divisors):
+    """ 
+    Returns the smallest positive number that is evenly divisible by all provided numbers.
+
+    Args:
+        divisors (range): Divisors of the number.
+
+    Returns:
+        int: The smallest positive number that is evenly divisible by all provided numbers.
+    """
+    smallest_multiple = divisors[0]
+
+    for i in range(1, len(divisors)):
+        current_divisor = divisors[i]
+        smallest_multiple = least_common_multiple(smallest_multiple, current_divisor)
+
+    return smallest_multiple
+
+
+def smallest_natural_number(number_of_digits):
+    """ 
+    Returns the smallest natural x-digit number.
+
+    Args:
+        number_of_digits (int): Number of digits of the smallest number.
+
+    Returns:
+        int: The smallest natural number that has `number_of_digits` digits.
+    
+    Raises:
+        ValueError: If `number_of_digits` is not a natural number.
+    """
+    if number_of_digits < 1:
+        raise ValueError('Number of digits must be greater than zero.')
+
+    return 10 ** (number_of_digits - 1)

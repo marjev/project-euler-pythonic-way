@@ -8,6 +8,7 @@ Project Euler problem | Problem name
 [Even Fibonacci numbers](https://projecteuler.net/problem=2) | [problem2.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem2.py)
 [Largest prime factor](https://projecteuler.net/problem=3) | [problem3.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem3.py)
 [Largest palindrome product](https://projecteuler.net/problem=4) | [problem4.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem4.py)
+[Smallest multiple](https://projecteuler.net/problem=5) | [problem5.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem5.py)
 
 # Utility modules:
 Name of the module | Short description
