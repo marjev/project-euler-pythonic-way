@@ -226,3 +226,29 @@ def smallest_natural_number(number_of_digits):
         raise ValueError('Number of digits must be greater than zero.')
 
     return 10 ** (number_of_digits - 1)
+
+
+def sum_of_n_natural_numbers(n):
+    """ 
+    Returns the sum of the first n natural numbers.
+
+    Args:
+        n (int): number of natural numbers
+
+    Returns:
+        int: The sum of the first n natural numbers.
+    """
+    return n * (n + 1) // 2
+
+
+def sum_of_squares_of_n_natural_numbers(n):
+    """ 
+    Returns the sum of the squares of the first n natural numbers.
+
+    Args:
+        n (int): number of natural numbers
+
+    Returns:
+        int: The sum of the squares of the first n natural numbers.
+    """
+    return n * (n + 1) * (2 * n + 1) // 6
