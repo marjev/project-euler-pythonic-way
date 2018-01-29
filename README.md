@@ -10,6 +10,7 @@ Project Euler problem | Problem name
 [Largest palindrome product](https://projecteuler.net/problem=4) | [problem4.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem4.py)
 [Smallest multiple](https://projecteuler.net/problem=5) | [problem5.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem5.py)
 [Sum square difference](https://projecteuler.net/problem=6) | [problem6.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem6.py)
+[10001st prime](https://projecteuler.net/problem=7) | [problem7.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem7.py)
 
 # Utility modules:
 Name of the module | Short description

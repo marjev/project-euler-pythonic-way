@@ -3,7 +3,7 @@ import math
 
 def get_fibonacci_numbers(limit):
     """ 
-    Return those Fibonacci numbers whose value does not exceed the limit.
+    Returns those Fibonacci numbers whose value does not exceed the limit.
 
     Args:
         limit (int): Upper limit which must not be exceeded.
@@ -16,6 +16,29 @@ def get_fibonacci_numbers(limit):
     while current < limit:
         yield current
         current, following = following, current + following
+
+
+def get_nth_prime_number(n):
+    """ 
+    Returns the n-th prime number.
+
+    Args:
+        n (int): Index of the prime number.
+
+    Returns:
+        int: The n-th prime number.
+    """
+    if n == 1:
+        return 2
+
+    n -= 1
+    prime_candidate = 1
+
+    while n > 0:
+        prime_candidate += 2
+        if is_prime_number(prime_candidate):
+            n -= 1
+    return prime_candidate
 
 
 def get_number_of_digits(number):
@@ -67,6 +90,33 @@ def is_palindrome(text):
         bool: True if `text` is a palindrome. False otherwise.
     """
     return text == text[::-1]
+
+
+def is_prime_number(number):
+    """ 
+    Returns whether the number is a prime number.
+
+    Args:
+        number (int): A number whose primality is tested.
+
+    Returns:
+        bool: True if `number` is the prime number. False otherwise.
+    """
+    if number < 2:
+        return False
+
+    if number % 2 == 0:
+        return False
+
+    square_root = math.sqrt(number)
+    upper_limit = int(square_root)
+    if square_root == upper_limit:
+        return False
+
+    for i in range(3, upper_limit + 1, 2):
+        if number % i == 0:
+            return False
+    return True
 
 
 def is_product_of_two_x_digit_numbers(number, number_of_digits):
