@@ -11,6 +11,7 @@ Project Euler problem | Problem name
 [Smallest multiple](https://projecteuler.net/problem=5) | [problem5.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem5.py)
 [Sum square difference](https://projecteuler.net/problem=6) | [problem6.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem6.py)
 [10001st prime](https://projecteuler.net/problem=7) | [problem7.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem7.py)
+[Largest product in a series](https://projecteuler.net/problem=8) | [problem8.py](https://github.com/marjev/project-euler-pythonic-way/blob/master/problems/problem8.py)
 
 # Utility modules:
 Name of the module | Short description
