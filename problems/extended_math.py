@@ -153,6 +153,37 @@ def is_product_of_two_x_digit_numbers(number, number_of_digits):
     return False
 
 
+def finding_pythagorean_triplet_by_sum(s):
+    """ 
+    Returns the Pythagorean triplet based on the sum of its elements.
+
+    Args:
+        s (int): The sum of the elements of the Pythagorean triplet.
+
+    Returns:
+        tuple: The Pythagorean triplet with the `s` being the sum of its elements.
+
+    Raises:
+        ValueError: in case such a Pythagorean triplet doesn't exist
+    """
+    limit = int(math.sqrt(s / 2))
+    for m in range(2, limit + 1):
+        if s // 2 % m == 0:
+            k = m + 1 if m % 2 == 0 else m + 2
+
+            while k < 2 * m and k <= s // (2 * m):
+                if s // (2 * m) % k == 0 and greatest_common_divisor(k, m) == 1:
+                    d = s // 2 // (k * m)
+                    n = k - m
+                    a = d * (m * m - n * n)
+                    b = 2 * d * n * m
+                    c = d * (m * m + n * n)
+                    return a, b, c
+                k += 2
+
+    raise ValueError('There is no Pythagorean triplet with the sum of elements equal to {s}'. format(s))
+
+
 def largest_natural_number(number_of_digits):
     """ 
     Returns the largest natural x-digit number.
@@ -238,6 +269,23 @@ def least_common_multiple(a, b):
         int: The LCM of two numbers
     """
     return abs(a * b) // greatest_common_divisor(a, b)
+
+
+def product(collection):
+    """ 
+    Returns the product of the collection's elements.
+
+    Args:
+        collection (Iterable): Collection whose elements are used to calculate the product.
+
+    Returns:
+        int: The product of the collection's elements.
+    """
+    product = 1
+    for element in collection:
+        product *= element
+
+    return product
 
 
 def smallest_multiple_of_numbers(divisors):
